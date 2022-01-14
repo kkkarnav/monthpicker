@@ -17,8 +17,56 @@ $(document).ready(function() {
         MaxMonth: 0,
         StartYear: 2022
     });
-    
 });
+
+function setPickersRange(monthArray) {
+    let minMonth = "01/2021";
+    let maxMonth = "01/2001";
+    for (month of monthArray) {
+        if ((month.split('/')[1] < minMonth.split('/')[1]) || (month.split('/')[1] == minMonth.split('/')[1] && month.split('/')[0] < minMonth.split('/')[0])) {
+            minMonth = month;
+        }
+        if ((month.split('/')[1] > maxMonth.split('/')[1]) || (month.split('/')[1] == minMonth.split('/')[1] && month.split('/')[0] > minMonth.split('/')[0])) {
+            maxMonth = month;
+        }
+    }
+
+    $('#From').MonthPicker( 
+    {
+        Button: false,
+        MinMonth: minMonth,
+        MaxMonth: maxMonth,
+        StartYear: minMonth.split('/')[1]
+    });
+
+    $('#To').MonthPicker( 
+    {
+        Button: false,
+        MinMonth: minMonth,
+        MaxMonth: maxMonth,
+        StartYear: maxMonth.split('/')[1]
+    });
+}
+
+function setFromMin(monthYear) {
+    $('#From').MonthPicker( 
+    {
+        Button: false,
+        MinMonth: (monthYear),
+        MaxMonth: 0,
+        StartYear: 2001
+    });
+}
+
+function setToMin(monthYear) {
+    $('#To').MonthPicker( 
+    {
+        Button: false,
+        MinMonth: monthYear,
+        MaxMonth: 0,
+        StartYear: 2022
+    });
+}
 
 function returnFromVal() {
     let val = $('#From').val();
